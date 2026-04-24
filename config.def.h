@@ -135,6 +135,7 @@ unsigned int defaultbg = 259;
 unsigned int defaultcs = 256;
 static unsigned int defaultrcs = 257;
 unsigned int const currentBg = 6, buffSize = 2048;
+int const pageScrollSpeed = 5; ///< [Vim Browse] Lines scrolled per J/K press.
 /// Enable double / triple click yanking / selection of word / line.
 int const mouseYank = 1, mouseSelect = 0;
 /// [Vim Browse] Colors for search results currently on screen.

@@ -7,6 +7,7 @@
 extern Glyph const styleSearch, style[];
 extern char const wDelS[], wDelL[], *nmKeys[];
 extern unsigned int bg[], fg, currentBg, highlightBg, highlightFg, amountNmKeys;
+extern int const pageScrollSpeed;
 
 typedef struct { int p[3]; } Pos;
 
@@ -110,8 +111,8 @@ ExitState executeMotion(char const cs, KeySym const *const ks) {
 	else if (ks && *ks == XK_f) historyMove(0, 0, term.row-1+(term.c.y=0));
 	else if (ks && *ks == XK_b) historyMove(0, 0, -(term.c.y=term.row-1));
 	else if (ks && *ks == XK_h) overlay = !overlay;
-	else if (cs == 'K') historyMove(0, 0, -(int)state.m.c);
-	else if (cs == 'J') historyMove(0, 0,  (int)state.m.c);
+	else if (cs == 'K') historyMove(0, 0, -(int)state.m.c * pageScrollSpeed);
+	else if (cs == 'J') historyMove(0, 0,  (int)state.m.c * pageScrollSpeed);
 	else if (cs == 'k') historyMove(0, -(int)state.m.c, 0);
 	else if (cs == 'j') historyMove(0,  (int)state.m.c, 0);
 	else if (cs == 'h') historyMove(-(int)state.m.c, 0, 0);
