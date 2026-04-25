@@ -2,3 +2,4 @@ config.h
 st
 st.o
 x.o
+.last_session_id
