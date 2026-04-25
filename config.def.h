@@ -24,15 +24,8 @@ char *utmp = NULL;
 /*
  * Filters key strings (those filter via a special pattern matcher) from terminal text and presents to user for interactive selection via fzf
  */
-//static char *selectkeystringcmd[] = {
-//	"/bin/sh", "-c", "/home/erandalex/main/bin/select_key_string | /home/erandalex/main/bin/clip", "externalpipe", NULL
-//};
 static char *selectkeystringcmd[] = {
-	//"/bin/sh", "-c", "/home/erandalex/main/bin/select_key_string | dmenu -l 10 -w $WINDOWID", "externalpipe", NULL
-	//"/bin/sh", "-c", "cat > ~/main/tmp/st_test_file", "externalpipe", NULL	//this one worked
-	//"/bin/sh", "-c", "st -e /home/erandalex/main/bin/select_key_string", "externalpipe", NULL
-	//"/usr/local/bin/st", "/bin/sh", "-c", "cat | fzf", "externalpipe", NULL
-	"/bin/sh", "-c", "cat > ~/main/tmp/st_test_file; st bash -c 'cat ~/main/tmp/st_test_file | /home/erandalex/main/bin/select_key_string | /home/erandalex/main/bin/clip'", "externalpipe", NULL	//this works except for the clip
+	"/bin/sh", "-c", "cat > ~/main/tmp/st_term_buffer; st bash -c 'cat ~/main/tmp/st_term_buffer | ~/main/bin/st/select_key_string > ~/main/tmp/st_selection'; xclip -rmlastnl -selection clipboard < ~/main/tmp/st_selection", "externalpipe", NULL
 };
 
 
@@ -236,7 +229,7 @@ static Shortcut shortcuts[] = {
 	{ ShiftMask,            XK_Insert,      selpaste,       {.i =  0} },
 	{ TERMMOD,              XK_Num_Lock,    numlock,        {.i =  0} },
 	{ MODKEY,               XK_c,           normalMode,     {.i =  0} },
-	{ TERMMOD,               XK_X,           externalpipe,   {.v = selectkeystringcmd} },
+	{ MODKEY,               XK_y,           externalpipe,   {.v = selectkeystringcmd} },
 };
 
 /*

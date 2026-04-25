@@ -1,0 +1,17 @@
+#!/bin/bash
+url='https:/(/[a-zA-Z0-9._-]+)+/?([\?#].*)?'
+path='([a-zA-Z0-9._-]+)?(/[a-zA-Z0-9._-]+)+'
+jira='[A-Z]+-[0-9]+'
+number='\b[0-9]+\b'
+REGEX="$url|$path|$jira|$number"
+
+#==================================================
+
+STDIN=$(mktemp)
+trap 'rm -f "$STDIN"' EXIT
+cat > "$STDIN"
+
+cat "$STDIN" |
+rg "$REGEX" -o |    #ripgrep special strs
+sort | uniq |   #only show 1 option per match-instance
+fzf --preview "rg --color=always {} $STDIN" --ansi  #select key string + preview w associated lines
