@@ -1,6 +1,6 @@
 #!/bin/bash
 url='https:/(/[a-zA-Z0-9._-]+)+/?([\?#].*)?'
-path='([a-zA-Z0-9._-]+)?(/[a-zA-Z0-9._-]+)+'
+path='([a-zA-Z0-9._-]+|~)?(/[a-zA-Z0-9._-]+)+'
 jira='[A-Z]+-[0-9]+'
 number='\b[0-9]+\b'
 REGEX="$url|$path|$jira|$number"

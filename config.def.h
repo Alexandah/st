@@ -25,7 +25,8 @@ char *utmp = NULL;
  * Filters key strings (those filter via a special pattern matcher) from terminal text and presents to user for interactive selection via fzf
  */
 static char *selectkeystringcmd[] = {
-	"/bin/sh", "-c", "cat > ~/main/tmp/st_term_buffer; st bash -c 'cat ~/main/tmp/st_term_buffer | ~/main/bin/st/select_key_string > ~/main/tmp/st_selection'; xclip -rmlastnl -selection clipboard < ~/main/tmp/st_selection", "externalpipe", NULL
+	//"/bin/sh", "-c", "cat > ~/main/tmp/st_term_buffer; st bash -c 'cat ~/main/tmp/st_term_buffer | ~/main/bin/st/select_key_string > ~/main/tmp/st_selection'; xclip -rmlastnl -selection clipboard < ~/main/tmp/st_selection", "externalpipe", NULL
+	"/bin/sh", "-c", "cat > ~/main/tmp/st_term_buffer; st bash -c 'cat ~/main/tmp/st_term_buffer | ~/main/bin/st/select_key_string > ~/main/tmp/st_selection; ~/main/bin/st/enact_action_per_string_type $(cat ~/main/tmp/st_selection)'", "externalpipe", NULL
 };
 
 
