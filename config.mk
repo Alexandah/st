@@ -4,7 +4,14 @@ VERSION = 0.9.3
 # Customize below to fit your system
 
 # paths
+MACHINE := $(shell cat MACHINE 2>/dev/null)
+ifeq ($(MACHINE),HOME)
 PREFIX = /usr/local
+else ifeq ($(MACHINE),AMD)
+PREFIX = ~/.local
+else
+$(error Unknown MACHINE value: '$(MACHINE)')
+endif
 MANPREFIX = $(PREFIX)/share/man
 
 X11INC = /usr/X11R6/include
