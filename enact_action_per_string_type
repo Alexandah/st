@@ -15,6 +15,9 @@ copy_to_clipboard() {
 if echo "$string" | rg -q "$url" ; then
 	setsid firefox "$string" </dev/null >/dev/null 2>&1 &
 	disown
+	# Sleep briefly to allow firefox to fully initialize and claim the URL,
+	# preventing a race condition where the shell might exit before firefox
+	# has fully processed and locked the resource.
 	sleep 0.5
 elif echo "$string" | rg -q "$path" ; then
 	choice=$(echo -e "open\ncopy" | fzf --header="$string")
