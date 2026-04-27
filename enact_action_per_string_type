@@ -5,7 +5,6 @@ jira='[A-Z]+-[0-9]+'
 number='\b[0-9]+\b'
 
 string="$1"
-echo "string=[$string]" > /tmp/st_debug.log
 
 copy_to_clipboard() {
 	echo "$1" | setsid -f xclip -rmlastnl -selection clipboard
@@ -14,13 +13,10 @@ copy_to_clipboard() {
 #==================================================
 
 if echo "$string" | rg -q "$url" ; then
-	echo "branch=url DISPLAY=$DISPLAY sid=$(ps -o sid= -p $$)" >> /tmp/st_debug.log
-	setsid firefox "$string" >>/tmp/st_debug.log 2>&1 &
-	FF_PID=$!
+	setsid firefox "$string" </dev/null >/dev/null 2>&1 &
 	disown
-	echo "ff_pid:$FF_PID sid=$(ps -o sid= -p $FF_PID 2>/dev/null)" >> /tmp/st_debug.log
+	sleep 0.5
 elif echo "$string" | rg -q "$path" ; then
-	echo "branch=path" >> /tmp/st_debug.log
 	choice=$(echo -e "open\ncopy" | fzf --header="$string")
 	case "$choice" in
 		open) rifle "${string/#~/$HOME}" ;;
